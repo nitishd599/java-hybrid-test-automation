@@ -2,6 +2,7 @@ package hooks;
 
 import core.driver.DriverFactory;
 import core.driver.DriverManager;
+import assertions.AssertionManager;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
@@ -22,6 +23,7 @@ public class Hooks {
             attachScreenshot(scenario);
         }
 
+        AssertionManager.assertAll();
         DriverFactory.quitDriver();
     }
 

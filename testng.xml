@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="Automation Suite" verbose="1" parallel="tests" thread-count="4">
+
+    <!-- Listeners for reporting -->
+    <listeners>
+        <listener class-name="listeners.SuiteListener"/>
+        <listener class-name="listeners.TestListener"/>
+    </listeners>
+
+    <!-- Cucumber Test Runner -->
+    <test name="Cucumber Tests">
+        <classes>
+            <class name="runners.TestRunner"/>
+        </classes>
+    </test>
+
+</suite>

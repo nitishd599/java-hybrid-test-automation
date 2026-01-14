@@ -1,18 +1,19 @@
 package listeners;
 
-import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import core.reports.ExtentManager;
 import core.reports.ExtentTestManager;
-import org.testng.*;
+import org.testng.ITestContext;
+import org.testng.ITestListener;
+import org.testng.ITestResult;
 
 public class TestListener implements ITestListener {
 
-    private static final ExtentReports extent = ExtentManager.getExtent();
-
     @Override
     public void onTestStart(ITestResult result) {
-        ExtentTest test = extent.createTest(result.getMethod().getMethodName());
+        // Create a new ExtentTest for each test method/scenario
+        ExtentTest test = ExtentManager.getExtent()
+                .createTest(result.getMethod().getMethodName());
         ExtentTestManager.setTest(test);
     }
 
@@ -27,7 +28,16 @@ public class TestListener implements ITestListener {
     }
 
     @Override
-    public void onFinish(ITestContext context) {
-        extent.flush();
+    public void onTestSkipped(ITestResult result) {
+        ExtentTestManager.getTest().skip(result.getThrowable());
     }
+
+    @Override
+    public void onTestFailedButWithinSuccessPercentage(ITestResult result) { }
+
+    @Override
+    public void onStart(ITestContext context) { }
+
+    @Override
+    public void onFinish(ITestContext context) { }
 }

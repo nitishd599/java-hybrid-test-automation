@@ -141,6 +141,10 @@
                     <systemPropertyVariables>
                         <env>${env}</env>
                     </systemPropertyVariables>
+                    <!-- Use TestNG suite XML -->
+                    <suiteXmlFiles>
+                        <suiteXmlFile>testng.xml</suiteXmlFile>
+                    </suiteXmlFiles>
                 </configuration>
             </plugin>
 

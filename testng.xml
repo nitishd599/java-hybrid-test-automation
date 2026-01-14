@@ -5,6 +5,7 @@
     <listeners>
         <listener class-name="listeners.SuiteListener"/>
         <listener class-name="listeners.TestListener"/>
+        <listener class-name="listeners.RetryTransformer"/>
     </listeners>
 
     <!-- Cucumber Test Runner -->

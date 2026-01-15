@@ -1,11 +1,11 @@
 package hooks;
 
-import context.ScenarioContext;
+import core.context.ScenarioContext;
 import core.driver.DriverFactory;
 import core.logging.FrameworkLogger;
 import core.logging.LogContext;
 import core.reports.ExtentTestManager;
-import assertions.AssertionManager;
+import assertions.core.AssertionManager;
 import utils.ScreenshotUtils;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
@@ -13,14 +13,14 @@ import io.cucumber.java.Scenario;
 
 public class Hooks {
 
-    @Before
+    @Before("@ui")
     public void beforeScenario(Scenario scenario) {
         LogContext.setScenarioName(scenario.getName());
         FrameworkLogger.info("Starting Scenario: " + scenario.getName());
         DriverFactory.initDriver();
     }
 
-    @After
+    @After("@ui")
     public void afterScenario(Scenario scenario) {
 
         if (scenario.isFailed()) {

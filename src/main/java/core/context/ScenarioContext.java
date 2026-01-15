@@ -1,4 +1,4 @@
-package context;
+package core.context;
 
 import java.util.HashMap;
 import java.util.Map;

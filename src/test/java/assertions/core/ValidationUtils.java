@@ -1,4 +1,4 @@
-package assertions;
+package assertions.core;
 
 public final class ValidationUtils {
 

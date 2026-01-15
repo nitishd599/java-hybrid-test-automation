@@ -1,4 +1,4 @@
-package assertions;
+package assertions.core;
 
 import org.testng.asserts.SoftAssert;
 

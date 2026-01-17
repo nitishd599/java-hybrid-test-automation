@@ -1,4 +1,4 @@
-package utils;
+package core.utils;
 
 import core.driver.DriverManager;
 import org.openqa.selenium.OutputType;

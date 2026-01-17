@@ -1,5 +1,6 @@
 package core.api.builder;
 
+import core.api.auth.AuthManager;
 import core.config.ConfigManager;
 import core.logging.FrameworkLogger;
 import io.restassured.builder.RequestSpecBuilder;
@@ -21,6 +22,13 @@ public final class RequestBuilder {
                 .setRelaxedHTTPSValidation()
                 .addHeader("Content-Type", "application/json")
                 .log(LogDetail.ALL)
+                .build();
+    }
+
+    public static RequestSpecification authRequest() {
+        return new RequestSpecBuilder()
+                .addRequestSpecification(baseRequest())
+                .addHeader("Authorization", "Bearer " + AuthManager.getToken())
                 .build();
     }
 

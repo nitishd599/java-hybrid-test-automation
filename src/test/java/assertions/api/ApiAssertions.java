@@ -5,6 +5,10 @@ import core.api.constants.ApiConstants;
 import core.context.ScenarioContext;
 import io.restassured.response.Response;
 
+import java.io.File;
+
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchema;
+
 public final class ApiAssertions {
 
     private ApiAssertions() {}
@@ -49,5 +53,13 @@ public final class ApiAssertions {
                         response().getTime() < millis,
                         "Response time exceeded: " + millis + " ms"
                 );
+    }
+
+    public static void verifySchema(String schemaFileName) {
+        Response response = response();
+        response.then().assertThat()
+                .body(matchesJsonSchema(
+                        new File("src/test/resources/schemas/" + schemaFileName)
+                ));
     }
 }

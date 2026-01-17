@@ -6,7 +6,7 @@ import core.logging.FrameworkLogger;
 import core.logging.LogContext;
 import core.reports.ExtentTestManager;
 import assertions.core.AssertionManager;
-import utils.ScreenshotUtils;
+import core.utils.ScreenshotUtils;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;

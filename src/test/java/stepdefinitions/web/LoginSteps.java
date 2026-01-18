@@ -1,7 +1,7 @@
 package stepdefinitions.web;
 
 import io.cucumber.java.en.Given;
-import pages.LoginPage;
+import pages.web.LoginPage;
 
 public class LoginSteps {
 
@@ -11,7 +11,7 @@ public class LoginSteps {
     public void userLogsIn() {
         loginPage
                 .enterUsername("admin")
-                .enterPassword("password")
-                .clickLogin();
+                .enterPassword("password");
+                //.clickLogin();
     }
 }

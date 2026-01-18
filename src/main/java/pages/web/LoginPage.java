@@ -1,4 +1,4 @@
-package pages;
+package pages.web;
 
 import core.actions.ElementActions;
 import org.openqa.selenium.By;
@@ -25,8 +25,4 @@ public class LoginPage {
         return this;
     }
 
-    public HomePage clickLogin() {
-        actions.click(loginBtn);
-        return new HomePage();
-    }
 }

@@ -17,14 +17,20 @@ public final class RequestBuilder {
 
     /** Base request — used in Hooks */
     public static RequestSpecification baseRequest() {
+
         FrameworkLogger.info("Creating base API request");
 
-        return new RequestSpecBuilder()
+        RequestSpecBuilder builder = new RequestSpecBuilder()
                 .setBaseUri(ConfigManager.getInstance().getApiBaseUrl())
                 .setRelaxedHTTPSValidation()
                 .addHeader("Content-Type", "application/json")
-                .log(LogDetail.ALL)
-                .build();
+                .addHeader("Accept", "application/json");
+
+        if (ConfigManager.getInstance().isApiRequestLoggingEnabled()) {
+            builder.log(LogDetail.ALL);
+        }
+
+        return builder.build();
     }
 
     public static RequestSpecification authRequest() {
@@ -34,23 +40,26 @@ public final class RequestBuilder {
                 .build();
     }
 
-    /** Enrich request with headers/body */
+    /** Always return a NEW spec (no mutation) */
     public static RequestSpecification with(
             RequestSpecification base,
             Map<String, String> headers,
             Object body
     ) {
+        RequestSpecBuilder builder = new RequestSpecBuilder()
+                .addRequestSpecification(base);
+
         if (headers != null && !headers.isEmpty()) {
             FrameworkLogger.debug("Adding headers: " + headers);
-            base.headers(headers);
+            builder.addHeaders(headers);
         }
 
         if (body != null) {
             FrameworkLogger.debug("Adding request body");
-            base.body(body);
+            builder.setBody(body);
         }
 
-        return base;
+        return builder.build();
     }
 
     private static void store(RequestSpecification request) {

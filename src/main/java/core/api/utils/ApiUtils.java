@@ -12,26 +12,39 @@ public final class ApiUtils {
     private ApiUtils() {}
 
     public static Response get(String endpoint) {
-        FrameworkLogger.info("GET " + endpoint);
-        Response response = getRequest().get(endpoint);
+        String resolvedEndpoint = PlaceholderResolver.resolve(endpoint);
+
+        FrameworkLogger.info("GET " + resolvedEndpoint);
+
+        Response response = getRequest()
+                .get(resolvedEndpoint);
+
         storeResponse(response);
         return response;
     }
 
     public static Response post(String endpoint, Object body) {
-        FrameworkLogger.info("POST " + endpoint);
+        String resolvedEndpoint = PlaceholderResolver.resolve(endpoint);
+
+        FrameworkLogger.info("POST " + resolvedEndpoint);
+
         Response response = getRequest()
                 .body(body)
-                .post(endpoint);
+                .post(resolvedEndpoint);
+
         storeResponse(response);
         return response;
     }
 
     public static Response put(String endpoint, Object body) {
-        FrameworkLogger.info("PUT " + endpoint);
+        String resolvedEndpoint = PlaceholderResolver.resolve(endpoint);
+
+        FrameworkLogger.info("PUT " + resolvedEndpoint);
+
         Response response = getRequest()
                 .body(body)
-                .put(endpoint);
+                .put(resolvedEndpoint);
+
         storeResponse(response);
         return response;
     }
@@ -41,11 +54,9 @@ public final class ApiUtils {
     }
 
     private static void storeResponse(Response response) {
+        if (ConfigManager.getInstance().isApiResponseLoggingEnabled()) {
+            response.then().log().all();
+        }
         ScenarioContext.set(ApiConstants.RESPONSE, response);
-    }
-
-    public static String resolveEndpoint(String endpoint) {
-        String resolvedPath = PlaceholderResolver.resolve(endpoint);
-        return ConfigManager.getInstance().getApiBaseUrl() + resolvedPath;
     }
 }

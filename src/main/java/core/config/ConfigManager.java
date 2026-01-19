@@ -1,7 +1,6 @@
 package core.config;
 
-import core.config.pojo.EnvironmentConfig;
-import core.config.pojo.RootConfig;
+import core.config.pojo.*;
 
 public final class ConfigManager {
 
@@ -81,15 +80,37 @@ public final class ConfigManager {
         return activeEnvConfig.getMobile().getApp().getLocalPath();
     }
 
-    public String getBrowserStackAppId() {
-        return activeEnvConfig.getMobile().getApp().getBrowserstackId();
-    }
+    public String getResolvedApp() {
 
-    public String getLambdaTestAppId() {
-        return activeEnvConfig.getMobile().getApp().getLambdatestId();
+        MobileConfig mobile = activeEnvConfig.getMobile();
+        AppConfig app = mobile.getApp();
+
+        if ("local".equalsIgnoreCase(app.getSource())) {
+            return app.getLocalPath();
+        }
+
+        String cloud = mobile.getCloud();
+        CloudProviderAppConfig providerConfig =
+                app.getCloud().get(cloud);
+
+        if (providerConfig == null) {
+            throw new RuntimeException(
+                    "No appId configured for cloud: " + cloud
+            );
+        }
+
+        return providerConfig.getAppId();
     }
 
     public String getCloudProvider() {
         return activeEnvConfig.getMobile().getCloud();
+    }
+
+    public boolean isApiRequestLoggingEnabled() {
+        return activeEnvConfig.getApi().getLogging().isRequest();
+    }
+
+    public boolean isApiResponseLoggingEnabled() {
+        return activeEnvConfig.getApi().getLogging().isResponse();
     }
 }

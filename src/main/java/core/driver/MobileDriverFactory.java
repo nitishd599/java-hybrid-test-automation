@@ -25,18 +25,25 @@ public final class MobileDriverFactory {
                 return;
             }
 
-            CloudCapabilityProvider provider = getProvider(cloud);
-
-            AppiumDriver driver = new AppiumDriver(
-                    new URL(provider.getRemoteUrl()),
-                    provider.getCapabilities()
-            );
-
-            DriverManager.setMobileDriver(driver);
+            createCloudDriver(cloud);
 
         } catch (Exception e) {
             throw new RuntimeException("Failed to initialize mobile driver", e);
         }
+    }
+
+    /* ---------------- CLOUD DRIVER ---------------- */
+
+    private static void createCloudDriver(String cloud) throws Exception {
+
+        CloudCapabilityProvider provider = getProvider(cloud);
+
+        AppiumDriver driver = new AppiumDriver(
+                new URL(provider.getRemoteUrl()),
+                provider.getCapabilities()
+        );
+
+        DriverManager.setMobileDriver(driver);
     }
 
     private static CloudCapabilityProvider getProvider(String cloud) {
@@ -50,6 +57,8 @@ public final class MobileDriverFactory {
         }
     }
 
+    /* ---------------- LOCAL DRIVER ---------------- */
+
     private static void createLocalDriver() {
         try {
             ConfigManager config = ConfigManager.getInstance();
@@ -58,6 +67,8 @@ public final class MobileDriverFactory {
             caps.setCapability("platformName", config.getMobilePlatform());
             caps.setCapability("deviceName", config.getDeviceName());
             caps.setCapability("automationName", "UiAutomator2");
+
+            // App resolution handled centrally
             caps.setCapability("app", AppResolver.resolve());
 
             AppiumDriver driver = new AndroidDriver(

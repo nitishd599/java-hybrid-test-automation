@@ -1,7 +1,6 @@
 package hooks;
 
 import core.api.builder.RequestBuilder;
-import core.api.constants.ApiConstants;
 import core.context.ScenarioContext;
 import core.logging.FrameworkLogger;
 import io.cucumber.java.After;
@@ -13,10 +12,9 @@ public class ApiHooks {
     @Before("@api")
     public void beforeApiScenario(Scenario scenario) {
         FrameworkLogger.info("Starting API Scenario: " + scenario.getName());
-        ScenarioContext.set(
-                ApiConstants.REQUEST_SPEC,
-                RequestBuilder.baseRequest()
-        );
+
+        // Single source of truth
+        RequestBuilder.baseRequestAndStore();
     }
 
     @After("@api")

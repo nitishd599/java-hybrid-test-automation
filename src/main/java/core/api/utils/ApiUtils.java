@@ -1,6 +1,7 @@
 package core.api.utils;
 
 import core.api.constants.ApiConstants;
+import core.config.ConfigManager;
 import core.context.ScenarioContext;
 import core.logging.FrameworkLogger;
 import io.restassured.response.Response;
@@ -41,5 +42,10 @@ public final class ApiUtils {
 
     private static void storeResponse(Response response) {
         ScenarioContext.set(ApiConstants.RESPONSE, response);
+    }
+
+    public static String resolveEndpoint(String endpoint) {
+        String resolvedPath = PlaceholderResolver.resolve(endpoint);
+        return ConfigManager.getInstance().getApiBaseUrl() + resolvedPath;
     }
 }

@@ -1,7 +1,9 @@
 package core.api.builder;
 
 import core.api.auth.AuthManager;
+import core.api.constants.ApiConstants;
 import core.config.ConfigManager;
+import core.context.ScenarioContext;
 import core.logging.FrameworkLogger;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.LogDetail;
@@ -49,5 +51,23 @@ public final class RequestBuilder {
         }
 
         return base;
+    }
+
+    private static void store(RequestSpecification request) {
+        ScenarioContext.set(ApiConstants.REQUEST_SPEC, request);
+    }
+
+    public static void baseRequestAndStore() {
+        store(baseRequest());
+    }
+
+    public static void authRequestAndStore() {
+        store(authRequest());
+    }
+
+    public static void withAndStore(Map<String, String> headers, Object body) {
+        RequestSpecification base =
+                ScenarioContext.get(ApiConstants.REQUEST_SPEC);
+        store(with(base, headers, body));
     }
 }

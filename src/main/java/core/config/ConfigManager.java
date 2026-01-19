@@ -73,8 +73,20 @@ public final class ConfigManager {
         return activeEnvConfig.getMobile().getDeviceName();
     }
 
-    public String getAppPath() {
-        return activeEnvConfig.getMobile().getAppPath();
+    public String getAppSource() {
+        return activeEnvConfig.getMobile().getApp().getSource();
+    }
+
+    public String getLocalAppPath() {
+        return activeEnvConfig.getMobile().getApp().getLocalPath();
+    }
+
+    public String getBrowserStackAppId() {
+        return activeEnvConfig.getMobile().getApp().getBrowserstackId();
+    }
+
+    public String getLambdaTestAppId() {
+        return activeEnvConfig.getMobile().getApp().getLambdatestId();
     }
 
     public String getCloudProvider() {

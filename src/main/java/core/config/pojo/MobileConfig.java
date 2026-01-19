@@ -8,6 +8,6 @@ import lombok.Setter;
 public class MobileConfig {
     private String platform;
     private String deviceName;
-    private String appPath;
+    private AppConfig app;
     private String cloud;
 }

@@ -217,14 +217,14 @@ mvn clean test -Dcucumber.filter.tags=@smoke
 
 <pre>
                     ┌──────────────────────────┐
-                    │        TestNG Suite       │
-                    │      (testng.xml)         │
+                    │        TestNG Suite      │
+                    │      (testng.xml)        │
                     └─────────────┬────────────┘
                                   │
                                   ▼
                     ┌──────────────────────────┐
-                    │     Cucumber Runner       │
-                    │   (TestRunner.java)       │
+                    │     Cucumber Runner      │
+                    │   (TestRunner.java)      │
                     └─────────────┬────────────┘
                                   │
         ┌─────────────────────────┼─────────────────────────┐
@@ -232,15 +232,15 @@ mvn clean test -Dcucumber.filter.tags=@smoke
         ▼                         ▼                         ▼
 
 ┌──────────────────┐   ┌──────────────────┐   ┌──────────────────┐
-│   Web Scenarios  │   │  Mobile Scenarios │   │   API Scenarios  │
-│   (Features)     │   │   (Features)      │   │   (Features)     │
+│   Web Scenarios  │   │  Mobile Scenarios│   │   API Scenarios  │
+│   (Features)     │   │   (Features)     │   │   (Features)     │
 └────────┬─────────┘   └────────┬─────────┘   └────────┬─────────┘
          │                      │                      │
          ▼                      ▼                      ▼
 
 ┌──────────────────────────────────────────────────────────────┐
-│                     Step Definitions                          │
-│        (No execution logic – orchestration only)              │
+│                     Step Definitions                         │
+│        (No execution logic – orchestration only)             │
 └────────┬─────────────────────┬──────────────────────┬────────┘
          │                     │                      │
          ▼                     ▼                      ▼
@@ -254,11 +254,11 @@ mvn clean test -Dcucumber.filter.tags=@smoke
         ▼                    ▼                      ▼
 
 ┌──────────────────────────────────────────────────────────────┐
-│                    Shared Core Layers                         │
-│  - ScenarioContext (ThreadLocal)                              │
-│  - ConfigManager (Singleton)                                  │
-│  - FrameworkLogger (Thread-aware logging)                     │
-│  - Extent Reporting                                           │
+│                    Shared Core Layers                        │
+│  - ScenarioContext (ThreadLocal)                             │
+│  - ConfigManager (Singleton)                                 │
+│  - FrameworkLogger (Thread-aware logging)                    │
+│  - Extent Reporting                                          │
 └──────────────────────────────────────────────────────────────┘
 </pre>
 

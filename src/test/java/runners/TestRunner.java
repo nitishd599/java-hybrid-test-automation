@@ -5,8 +5,9 @@ import io.cucumber.testng.CucumberOptions;
 import org.testng.annotations.DataProvider;
 
 @CucumberOptions(
-        features = "src/test/resources/features",
+        features = "${cucumber.features}",
         glue = {"stepdefinitions", "hooks"},
+        tags = "${cucumber.filter.tags}",
         plugin = {
                 "pretty",
                 "html:target/cucumber-report.html",

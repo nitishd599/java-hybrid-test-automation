@@ -14,7 +14,11 @@
     <!-- ================= PROPERTIES ================= -->
     <properties>
         <java.version>11</java.version>
+        <!-- Safe defaults for IDE / right-click -->
         <env>qa</env>
+        <cucumber.features>src/test/resources/features</cucumber.features>
+        <cucumber.filter.tags>@smoke</cucumber.filter.tags>
+
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -132,6 +136,39 @@
         </dependency>
 
     </dependencies>
+
+    <profiles>
+
+        <profile>
+            <id>smoke</id>
+            <properties>
+                <cucumber.filter.tags>@smoke</cucumber.filter.tags>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>regression</id>
+            <properties>
+                <cucumber.filter.tags>@regression</cucumber.filter.tags>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>api</id>
+            <properties>
+                <cucumber.features>src/test/resources/features/api</cucumber.features>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>ui</id>
+            <properties>
+                <cucumber.features>src/test/resources/features/ui</cucumber.features>
+            </properties>
+        </profile>
+
+    </profiles>
+
 
     <!-- ================= BUILD ================= -->
     <build>
